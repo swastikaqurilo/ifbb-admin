@@ -108,10 +108,21 @@ async function toggleCourseVisibility(courseId: string, isPublic: boolean, token
       body: JSON.stringify({ isPublic })
     });
 
+    // if (!response.ok) {
+    //   const errorText = await response.text();
+    //   throw new Error(`Failed to update visibility: ${response.status} - ${errorText}`);
+    // }
+
+
     if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`Failed to update visibility: ${response.status} - ${errorText}`);
+      const errorData = await response.json().catch(() => null);
+
+      throw new Error(
+        errorData?.message ||
+        "Failed to update course visibility."
+      );
     }
+
 
     return await response.json();
   } catch (error) {
@@ -740,20 +751,20 @@ export default function CoursesAdminPage() {
     // }
 
 
-     catch (error: any) {
-  console.error("Error saving course:", error);
+    catch (error: any) {
+      console.error("Error saving course:", error);
 
-  alert(
-    error?.message ||
-    "Something went wrong while creating the course."
-  );
-} finally {
-  setSaving(false);
-}
+      alert(
+        error?.message ||
+        "Something went wrong while creating the course."
+      );
+    } finally {
+      setSaving(false);
+    }
 
 
 
-}
+  }
 
   async function onDelete(courseId: string) {
     if (!token) return;
@@ -794,10 +805,23 @@ export default function CoursesAdminPage() {
         setSelectedCourse(prev => prev ? { ...prev, isPublic: newVisibility, published: newVisibility } : null);
       }
 
-    } catch (error) {
-      console.error("Failed to update visibility:", error);
-      alert("Failed to update course visibility. Please try again.");
     }
+    // catch (error) {
+    //   console.error("Failed to update visibility:", error);
+    //   alert("Failed to update course visibility. Please try again.");
+    // }
+
+
+    catch (error: any) {
+      console.error(error);
+
+      alert(
+        error?.message ||
+        "Failed to update course visibility."
+      );
+    }
+
+
   }
 
   function openModuleContent(module: ModuleItem) {
@@ -811,19 +835,19 @@ export default function CoursesAdminPage() {
   }
 
 
-// function openModuleContent(module: ModuleItem) {
-//   const pdfUrl = module.asset?.url || module.assetLink;
+  // function openModuleContent(module: ModuleItem) {
+  //   const pdfUrl = module.asset?.url || module.assetLink;
 
-//   if (!pdfUrl) {
-//     alert("No content available for this module");
-//     return;
-//   }
+  //   if (!pdfUrl) {
+  //     alert("No content available for this module");
+  //     return;
+  //   }
 
-//   window.open(
-//     `${pdfUrl}#toolbar=0&navpanes=0&scrollbar=0`,
-//     "_blank"
-//   );
-// }
+  //   window.open(
+  //     `${pdfUrl}#toolbar=0&navpanes=0&scrollbar=0`,
+  //     "_blank"
+  //   );
+  // }
 
 
   // Pagination handlers
