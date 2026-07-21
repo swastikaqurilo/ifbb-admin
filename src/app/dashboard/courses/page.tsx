@@ -702,30 +702,75 @@ export default function CoursesAdminPage() {
     }
   }
 
-  async function deleteModuleHandler(courseId: string, moduleId: string) {
-    if (!token) return;
-    if (!confirm("Delete this module? This cannot be undone.")) return;
+  // async function deleteModuleHandler(courseId: string, moduleId: string) {
+  //   if (!token) return;
+  //   if (!confirm("Delete this module? This cannot be undone.")) return;
 
-    try {
-      console.log(`Deleting module: Course ID - ${courseId}, Module ID - ${moduleId}`);
+  //   try {
+  //     console.log(`Deleting module: Course ID - ${courseId}, Module ID - ${moduleId}`);
 
-      await deleteModule(courseId, moduleId, token);
-      await loadCourses(pagination.currentPage);
+  //     await deleteModule(courseId, moduleId, token);
+  //     await loadCourses(pagination.currentPage);
 
-      // Refresh selected course if it's open
-      if (selectedCourse && selectedCourse._id === courseId) {
-        const updatedCourse = courses.find(c => c._id === courseId);
-        if (updatedCourse) {
-          setSelectedCourse(updatedCourse);
-        }
-      }
+  //     // Refresh selected course if it's open
+  //     if (selectedCourse && selectedCourse._id === courseId) {
+  //       const updatedCourse = courses.find(c => c._id === courseId);
+  //       if (updatedCourse) {
+  //         setSelectedCourse(updatedCourse);
+  //       }
+  //     }
 
-      alert("Module deleted successfully!");
-    } catch (error: any) {
-      console.error("Error deleting module:", error);
-      alert(`Failed to delete module: ${error.message}`);
-    }
+  //     alert("Module deleted successfully!");
+  //   } catch (error: any) {
+  //     console.error("Error deleting module:", error);
+  //     alert(`Failed to delete module: ${error.message}`);
+  //   }
+  // }
+
+
+
+async function deleteModuleHandler(courseId: string, moduleId: string) {
+  if (!token) return;
+
+  if (!confirm("Delete this module?")) return;
+
+  try {
+    await deleteModule(courseId, moduleId, token);
+
+    // Update Courses state immediately
+    setCourses(prev =>
+      prev.map(course =>
+        course._id === courseId
+          ? {
+              ...course,
+              modules: course.modules.filter(
+                module => module._id !== moduleId
+              ),
+            }
+          : course
+      )
+    );
+
+    // Update opened modal immediately
+    setSelectedCourse(prev => {
+      if (!prev || prev._id !== courseId) return prev;
+
+      return {
+        ...prev,
+        modules: prev.modules.filter(
+          module => module._id !== moduleId
+        ),
+      };
+    });
+
+    alert("Module deleted successfully!");
+
+  } catch (error: any) {
+    alert(error.message);
   }
+}
+
+
 
   async function submitForm(e?: React.FormEvent) {
     e?.preventDefault();
