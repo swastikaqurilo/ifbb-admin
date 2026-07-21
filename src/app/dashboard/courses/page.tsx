@@ -288,15 +288,43 @@ async function deleteCourse(courseId: string, token: string) {
       }
     });
 
+    // if (!response.ok) {
+    //   throw new Error(`Failed to delete course: ${response.status}`);
+    // }
+
+
+
     if (!response.ok) {
-      throw new Error(`Failed to delete course: ${response.status}`);
+      const errorData = await response.json().catch(() => null);
+
+      throw new Error(
+        errorData?.message ||
+        "Failed to delete course."
+      );
     }
 
+
+
+
     return await response.json();
-  } catch (error) {
-    console.error("Error deleting course:", error);
-    throw error;
   }
+  // catch (error) {
+  //   console.error("Error deleting course:", error);
+  //   throw error;
+  // }
+
+
+  catch (error: any) {
+    console.error("Error deleting course:", error);
+
+    alert(
+      error?.message ||
+      "Failed to delete course."
+    );
+  }
+
+
+
 }
 
 /* ---------------- Small components ---------------- */
