@@ -1,4 +1,4 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const API_URL = process.env.NEXT_PRIVATE_API_URL;
 
 export interface LoginCredentials {
   email: string;
@@ -9,7 +9,7 @@ export const adminLogin = async (
   credentials: LoginCredentials
 ): Promise<{ token: string; adminInfo: any }> => {
   if (!API_URL) {
-    throw new Error('NEXT_PUBLIC_API_URL not defined');
+    throw new Error('NEXT_PRIVATE_API_URL not defined');
   }
 
   const response = await fetch(`${API_URL}/admin/admin-log-in`, {
