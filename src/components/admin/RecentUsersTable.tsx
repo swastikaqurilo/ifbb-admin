@@ -43,7 +43,7 @@ type FilterType = "all" | "Active" | "Offline";
 
 /* ================= CONFIG ================= */
 
-const API_URL = "https://api.ifbb.qurilo.com/api/admin/get-all-users";
+const API_URL = "https://api.ifbbacademyaustralia.com/api/admin/get-all-users";
 
 /* ================= HELPERS ================= */
 

@@ -40,7 +40,7 @@ const navItems = [
   { key: "settings", label: "Setting", href: "/dashboard/setting" },
 ];
 
-const API_BASE_URL = "https://api.ifbb.qurilo.com/api";
+const API_BASE_URL = "https://api.ifbbacademyaustralia.com/api";
 
 export default function Header() {
   const { token, logout } = useAuth();

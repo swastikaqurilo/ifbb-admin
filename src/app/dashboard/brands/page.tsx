@@ -3,7 +3,7 @@
 import React, { useCallback, useRef, useState, useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
 
-const API_BASE_URL = "https://api.ifbb.qurilo.com/api/admin";
+const API_BASE_URL = "https://api.ifbbacademyaustralia.com/api/admin";
 
 type UploadedFile = {
   id: string;

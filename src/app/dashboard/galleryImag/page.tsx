@@ -17,7 +17,7 @@ type ImageWithSize = GalleryImage & {
 };
 
 /* ------------- Constants ------------- */
-const API_BASE_URL = "https://api.ifbb.qurilo.com/api";
+const API_BASE_URL = "https://api.ifbbacademyaustralia.com/api";
 
 /* ------------- Helper Functions ------------- */
 async function getImageSize(url: string): Promise<number> {

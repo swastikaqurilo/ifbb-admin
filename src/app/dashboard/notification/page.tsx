@@ -53,7 +53,7 @@ const NotificationPage = () => {
     setError('');
 
     try {
-      const response = await fetch('https://api.ifbb.qurilo.com/api/admin/course-inquiries', {
+      const response = await fetch('https://api.ifbbacademyaustralia.com/api/admin/course-inquiries', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

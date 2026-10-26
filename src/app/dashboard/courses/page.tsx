@@ -42,7 +42,7 @@ type Course = {
 };
 
 /* ------------- Constants ------------- */
-const API_BASE_URL = "https://api.ifbb.qurilo.com/api/admin";
+const API_BASE_URL = "https://api.ifbbacademyaustralia.com/api/admin";
 const PLACEHOLDER = "https://images.unsplash.com/photo-1605296867304-46d5465a13f1?q=80&w=1200&auto=format&fit=crop";
 
 /* ------------- API Functions ------------- */
@@ -2058,7 +2058,7 @@ async function deleteModuleHandler(courseId: string, moduleId: string) {
 // };
 
 // /* ------------- Constants ------------- */
-// const API_BASE_URL = "https://api.ifbb.qurilo.com/api/admin";
+// const API_BASE_URL = "https://api.ifbbacademyaustralia.com/api/admin";
 // const PLACEHOLDER = "https://images.unsplash.com/photo-1605296867304-46d5465a13f1?q=80&w=1200&auto=format&fit=crop";
 
 // /* ------------- API Functions ------------- */
